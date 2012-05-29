@@ -162,6 +162,9 @@ var ui = {
       ui.renderCalendar(prev_month.getMonth(), prev_month.getFullYear());
     });
     
+    var prev_month_name = this.month_names[prev_month.getMonth()] + '\'' + (prev_month.getYear() - 100);
+    $('#prev').attr('value', '< ' + prev_month_name);
+    
     // $('#current').unbind('click').bind('click', function() {
     //   ui.renderCalendar(now.getMonth(), now.getFullYear());
     // });
@@ -169,6 +172,9 @@ var ui = {
     $('#next').unbind('click').bind('click', function() {
       ui.renderCalendar(next_month.getMonth(), next_month.getFullYear());
     });
+    
+    var next_month_name = this.month_names[next_month.getMonth()] + '\'' + (next_month.getYear() - 100);
+    $('#next').attr('value', next_month_name + ' >');
   },
   
   // Render Clock
