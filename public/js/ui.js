@@ -136,7 +136,10 @@ var ui = {
           classes.push('weekend');
         }
         
-        if(this.workingDay(current_year, current_month, current_day)) {
+        var day = new Date(current_year, current_month, current_day);
+        if(this.dayIsOnVacation(day)) {
+          classes.push('vacation');
+        } else if(this.dayIsWorking(day)) {
           classes.push('working');
         }
         
@@ -159,9 +162,9 @@ var ui = {
       ui.renderCalendar(prev_month.getMonth(), prev_month.getFullYear());
     });
     
-    $('#current').unbind('click').bind('click', function() {
-      ui.renderCalendar(now.getMonth(), now.getFullYear());
-    });
+    // $('#current').unbind('click').bind('click', function() {
+    //   ui.renderCalendar(now.getMonth(), now.getFullYear());
+    // });
     
     $('#next').unbind('click').bind('click', function() {
       ui.renderCalendar(next_month.getMonth(), next_month.getFullYear());
@@ -199,13 +202,7 @@ var ui = {
     }, 500);
   },
   
-  workingDay: function(year, month, day) {
-    var day = new Date(year, month, day);
-    
-    var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
-    days_since_base_date = Math.ceil(days_since_base_date);
-    var cycle_position = days_since_base_date % 4;
-    
+  dayIsOnVacation: function(day) {
     var day_is_on_vacation = false;
     $(this.vacations).each(function(index, vacation) {
       if(vacation[0] <= day && day <= vacation[1]) {
@@ -213,7 +210,15 @@ var ui = {
       }
     });
     
-    if((cycle_position == -3 || cycle_position == 0 || cycle_position == 1) && !day_is_on_vacation) {
+    return day_is_on_vacation;
+  },
+  
+  dayIsWorking: function(day) {
+    var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
+    days_since_base_date = Math.ceil(days_since_base_date);
+    var cycle_position = days_since_base_date % 4;
+    
+    if(cycle_position == -3 || cycle_position == 0 || cycle_position == 1) {
       return true;
     } else {
       return false

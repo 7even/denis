@@ -50,6 +50,10 @@ td.working {
   background-color: #efefef;
 }
 
+td.vacation {
+  background-color: yellowgreen;
+}
+
 .content {
   color: black;
   font-size: 11px;
