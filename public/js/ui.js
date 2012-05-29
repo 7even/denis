@@ -27,6 +27,13 @@ var ui = {
   base_date: new Date(2012, 4, 26),
   milliseconds_in_day: 1000 * 60 * 60 * 24,
   
+  vacations: [
+    [
+      new Date(2012, 5, 8),
+      new Date(2012, 5, 23)
+    ]
+  ],
+  
   // Render the Calendar
   renderCalendar: function(current_month, current_year) {
     // HTML renderers
@@ -194,10 +201,19 @@ var ui = {
   
   workingDay: function(year, month, day) {
     var day = new Date(year, month, day);
+    
     var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
     days_since_base_date = Math.ceil(days_since_base_date);
+    var cycle_position = days_since_base_date % 4;
     
-    if(days_since_base_date % 4 == 0 || days_since_base_date % 4 == 1 || days_since_base_date % 4 == -3) {
+    var day_is_on_vacation = false;
+    $(this.vacations).each(function(index, vacation) {
+      if(vacation[0] <= day && day <= vacation[1]) {
+        day_is_on_vacation = true;
+      }
+    });
+    
+    if((cycle_position == -3 || cycle_position == 0 || cycle_position == 1) && !day_is_on_vacation) {
       return true;
     } else {
       return false
