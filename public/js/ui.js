@@ -24,6 +24,9 @@ var ui = {
     'Вс'
   ],
   
+  base_date: new Date(2012, 4, 26),
+  milliseconds_in_day: 1000 * 60 * 60 * 24,
+  
   // Render the Calendar
   renderCalendar: function(current_month, current_year) {
     // HTML renderers
@@ -114,7 +117,7 @@ var ui = {
           last_day_encountered = true;
         }
         
-        // Set class
+        // Set classes
         var classes = [];
         if(
           current_day == now.getDate()
@@ -124,6 +127,10 @@ var ui = {
           classes.push('today');
         } else if(weekday == 5 || weekday == 6) {
           classes.push('weekend');
+        }
+        
+        if(this.workingDay(current_year, current_month, current_day)) {
+          classes.push('working');
         }
         
         // Set ID
@@ -183,6 +190,18 @@ var ui = {
     setTimeout(function() {
       ui.renderTime();
     }, 500);
+  },
+  
+  workingDay: function(year, month, day) {
+    var day = new Date(year, month, day);
+    var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
+    days_since_base_date = Math.ceil(days_since_base_date);
+    
+    if(days_since_base_date % 4 == 0 || days_since_base_date % 4 == 1 || days_since_base_date % 4 == -3) {
+      return true;
+    } else {
+      return false
+    }
   },
   
   // Initialization

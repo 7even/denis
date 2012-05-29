@@ -6,53 +6,56 @@ body {
   position: relative;
 }
 
-.year{
-	font-size: 108px;
-	margin-top: 30px;
+.year {
+  font-size: 108px;
+  margin-top: 30px;
 }
 
-.month{
-	font-size: 42px;
-	color: red;
+.month {
+  font-size: 42px;
+  color: red;
 }
 
-.time{
-	float: right;
-	font-size: 36px;
-	text-align: right;
+.time {
+  float: right;
+  font-size: 36px;
+  text-align: right;
 }
 
-.calendar{
+.calendar {
 }
 
 .calendar th {
-	font-size: 14px;
-	font-weight: bold;
-	border-top: 1px solid #ccc;
-	width: 150px;
+  font-size: 14px;
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+  width: 150px;
 }
 
 .calendar td {
-	height: 50px;
-	font-size: 24px;
-	color: #999;
+  height: 50px;
+  font-size: 24px;
+  color: #666;
 }
 
-.calendar td.weekend {
-	color: #cdcdcd;
+td.today {
+  background-color: #c0efc0 !important;
 }
 
-.calendar td.today {
-	background-color: #efefef;
-	color: #666666;
+td.weekend {
+  color: red;
 }
 
-.calendar td.holiday {
-	color: red;
+td.working {
+  background-color: #efefef;
 }
 
 .content {
-	color: black;
-	font-size: 11px;
-	line-height: 0px;
+  color: black;
+  font-size: 11px;
+  line-height: 0px;
+}
+
+#legend {
+  float: right;
 }
