@@ -1,47 +1,37 @@
-doctype html
-html
-  head
-    meta charset="utf-8"
-    title График
-    
-    /[ if lt IE 9 ]
-      script src="http://html5shim.googlecode.com/svn/trunk/html5.js"
-    
-    link href="/css/bootstrap.css" rel="stylesheet"
-    link href="/css/doc.css" rel="stylesheet"
-    
-    script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"
-    script src="/js/ui.js" type="text/javascript"
-  
-  body
-    div class="container"
-      div class="row"
-        div class="span12 offset2"
-          h1 class="year"
-          h2 class="time"
-          h3 class="month"
-          
-          table id="calendar" class="calendar"
-            thead
-            tbody
-          
-          div class="span7" id="legend"
-            table class="bordered-table"
-              tbody
-                tr
-                  td class="today" сегодня
-                  td class="working" рабочий день
-                  td нерабочий день
-                  td class="vacation" отпуск
-                
-              
+javascript:
+  $(document).ready(function() {
+    // Render the calendar
+    calendar.render();
+    // Render the time
+    time.render();
+  });
+
+div class="container"
+  div class="row"
+    div class="span12 offset2"
+      h1 class="year"
+      h2 class="time"
+      h3 class="month"
+      
+      table id="calendar" class="calendar"
+        thead
+        tbody
+      
+      div class="span7" id="legend"
+        table class="bordered-table"
+          tbody
+            tr
+              td class="today" сегодня
+              td class="working" рабочий день
+              td нерабочий день
+              td class="vacation" отпуск
             
           
-          input type="button" name="prev" id="prev" value="Предыдущий" class="btn"
-          input type="button" name="next" id="next" value="Следующий" class="btn"
-          / input type="button" name="current" id="current" value="Текущий" class="btn"
-          
         
+      
+      input type="button" name="prev" id="prev" value="Предыдущий" class="btn"
+      input type="button" name="next" id="next" value="Следующий" class="btn"
+      / input type="button" name="current" id="current" value="Текущий" class="btn"
       
     
   

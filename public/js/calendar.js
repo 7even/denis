@@ -1,4 +1,4 @@
-var ui = {
+var calendar = {
   month_names: [
     'Январь',
     'Февраль',
@@ -35,7 +35,7 @@ var ui = {
   ],
   
   // Render the Calendar
-  renderCalendar: function(current_month, current_year) {
+  render: function(current_month, current_year) {
     // HTML renderers
     var _html = '';
     var id = '';
@@ -159,26 +159,51 @@ var ui = {
     }
     
     $('#prev').unbind('click').bind('click', function() {
-      ui.renderCalendar(prev_month.getMonth(), prev_month.getFullYear());
+      calendar.render(prev_month.getMonth(), prev_month.getFullYear());
     });
     
     var prev_month_name = this.month_names[prev_month.getMonth()] + '\'' + (prev_month.getYear() - 100);
     $('#prev').attr('value', '< ' + prev_month_name);
     
     // $('#current').unbind('click').bind('click', function() {
-    //   ui.renderCalendar(now.getMonth(), now.getFullYear());
+    //   calendar.render(now.getMonth(), now.getFullYear());
     // });
     
     $('#next').unbind('click').bind('click', function() {
-      ui.renderCalendar(next_month.getMonth(), next_month.getFullYear());
+      calendar.render(next_month.getMonth(), next_month.getFullYear());
     });
     
     var next_month_name = this.month_names[next_month.getMonth()] + '\'' + (next_month.getYear() - 100);
     $('#next').attr('value', next_month_name + ' >');
   },
   
+  dayIsOnVacation: function(day) {
+    var day_is_on_vacation = false;
+    $(this.vacations).each(function(index, vacation) {
+      if(vacation[0] <= day && day <= vacation[1]) {
+        day_is_on_vacation = true;
+      }
+    });
+    
+    return day_is_on_vacation;
+  },
+  
+  dayIsWorking: function(day) {
+    var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
+    days_since_base_date = Math.ceil(days_since_base_date);
+    var cycle_position = days_since_base_date % 4;
+    
+    if(cycle_position == -3 || cycle_position == 0 || cycle_position == 1) {
+      return true;
+    } else {
+      return false
+    }
+  }
+};
+
+var time = {
   // Render Clock
-  renderTime: function() {
+  render: function() {
     var now = new Date();
     
     var hours = now.getHours();
@@ -204,47 +229,7 @@ var ui = {
     );
     
     setTimeout(function() {
-      ui.renderTime();
+      time.render();
     }, 500);
-  },
-  
-  dayIsOnVacation: function(day) {
-    var day_is_on_vacation = false;
-    $(this.vacations).each(function(index, vacation) {
-      if(vacation[0] <= day && day <= vacation[1]) {
-        day_is_on_vacation = true;
-      }
-    });
-    
-    return day_is_on_vacation;
-  },
-  
-  dayIsWorking: function(day) {
-    var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
-    days_since_base_date = Math.ceil(days_since_base_date);
-    var cycle_position = days_since_base_date % 4;
-    
-    if(cycle_position == -3 || cycle_position == 0 || cycle_position == 1) {
-      return true;
-    } else {
-      return false
-    }
-  },
-  
-  // Initialization
-  init: function() {
-    
   }
 };
-
-// Initialize
-ui.init();
-
-// Load
-$(document).ready(function() {
-  // Render the calendar
-  ui.renderCalendar();
-  
-  // Render the time
-  ui.renderTime();
-});
