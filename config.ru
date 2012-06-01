@@ -1,4 +1,4 @@
 $LOAD_PATH << File.expand_path('..', __FILE__)
-require 'init'
+require 'app'
 
 run Sinatra::Application

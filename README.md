@@ -2,6 +2,15 @@
 
 За основу взят календарь http://www.calendarandti.me/, написанный [Joshua Miller](mailto:joshuamil@gmail.com) и использующий [Twitter Bootstrap](http://twitter.github.com/bootstrap/). JS был значительно переписан и доработан.
 
-## TODO
+Используемая БД: `sqlite`.
 
-Sinatra, как и сервер-сайд вообще, тут нафиг не нужен - все 100% статично.
+## Установка
+
+``` bash
+# при необходимости ставим sqlite
+$ git clone git://github.com/7even/denis.git
+$ cd ./denis
+$ bundle install # ставим зависимости
+$ rake install   # инициализируем БД
+$ rackup         # запускаем (при желании используем любой rack-совместимый сервер)
+```

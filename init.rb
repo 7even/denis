@@ -1,8 +1,8 @@
 require 'bundler'
 Bundler.require
 
-Slim::Engine.set_default_options(pretty: true)
+Sequel.connect('sqlite://db/settings.sqlite3')
 
-get '/' do
-  slim :index
-end
+$LOAD_PATH << File.expand_path('..', __FILE__)
+require 'lib/setting'
+require 'lib/vacation'
