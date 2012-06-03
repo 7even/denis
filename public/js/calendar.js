@@ -24,15 +24,7 @@ var calendar = {
     'Вс'
   ],
   
-  base_date: new Date(2012, 4, 26),
   milliseconds_in_day: 1000 * 60 * 60 * 24,
-  
-  vacations: [
-    [
-      new Date(2012, 5, 8),
-      new Date(2012, 5, 23)
-    ]
-  ],
   
   // Render the Calendar
   render: function(current_month, current_year) {
@@ -191,13 +183,35 @@ var calendar = {
   dayIsWorking: function(day) {
     var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
     days_since_base_date = Math.ceil(days_since_base_date);
-    var cycle_position = days_since_base_date % 4;
+    var cycle_position = days_since_base_date % this.schedule.length;
     
+    // FIXME: algorythm should respect this.schedule instead of hard-coded values
     if(cycle_position == -3 || cycle_position == 0 || cycle_position == 1) {
       return true;
     } else {
       return false
     }
+  },
+  
+  loadAndRender: function() {
+    $.getJSON('/settings.json', function(result) {
+      calendar.schedule  = result.settings.schedule;
+      calendar.base_date = calendar.parseDate(result.settings.base_date);
+      
+      calendar.vacations = [];
+      $(result.vacations).each(function(index, vacation) {
+        var start = calendar.parseDate(vacation.start);
+        var end   = calendar.parseDate(vacation.end);
+        calendar.vacations.push([start, end]);
+      });
+      
+      calendar.render();
+    });
+  },
+  
+  parseDate: function(date_string) {
+    var date_array = date_string.split('-');
+    return new Date(date_array[0], date_array[1] - 1, date_array[2]);
   }
 };
 
