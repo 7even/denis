@@ -183,13 +183,14 @@ var calendar = {
   dayIsWorking: function(day) {
     var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
     days_since_base_date = Math.ceil(days_since_base_date);
-    var cycle_position = days_since_base_date % this.schedule.length;
     
-    // FIXME: algorythm should respect this.schedule instead of hard-coded values
-    if(cycle_position == -3 || cycle_position == 0 || cycle_position == 1) {
+    var cycle_position = days_since_base_date % this.schedule.length;
+    if(cycle_position < 0) cycle_position += this.schedule.length;
+    
+    if(this.schedule[cycle_position] == 1) {
       return true;
     } else {
-      return false
+      return false;
     }
   },
   
