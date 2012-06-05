@@ -171,7 +171,7 @@ var calendar = {
   
   dayIsOnVacation: function(day) {
     var day_is_on_vacation = false;
-    $(this.vacations).each(function(index, vacation) {
+    $(settings.vacations).each(function(index, vacation) {
       if(vacation[0] <= day && day <= vacation[1]) {
         day_is_on_vacation = true;
       }
@@ -181,13 +181,13 @@ var calendar = {
   },
   
   dayIsWorking: function(day) {
-    var days_since_base_date = (day - this.base_date) / this.milliseconds_in_day;
+    var days_since_base_date = (day - settings.base_date) / this.milliseconds_in_day;
     days_since_base_date = Math.ceil(days_since_base_date);
     
-    var cycle_position = days_since_base_date % this.schedule.length;
-    if(cycle_position < 0) cycle_position += this.schedule.length;
+    var cycle_position = days_since_base_date % settings.schedule.length;
+    if(cycle_position < 0) cycle_position += settings.schedule.length;
     
-    if(this.schedule[cycle_position] == 1) {
+    if(settings.schedule[cycle_position] == 1) {
       return true;
     } else {
       return false;
@@ -195,24 +195,9 @@ var calendar = {
   },
   
   loadAndRender: function() {
-    $.getJSON('/settings.json', function(result) {
-      calendar.schedule  = result.settings.schedule;
-      calendar.base_date = calendar.parseDate(result.settings.base_date);
-      
-      calendar.vacations = [];
-      $(result.vacations).each(function(index, vacation) {
-        var start = calendar.parseDate(vacation.start);
-        var end   = calendar.parseDate(vacation.end);
-        calendar.vacations.push([start, end]);
-      });
-      
+    settings.load(function() {
       calendar.render();
     });
-  },
-  
-  parseDate: function(date_string) {
-    var date_array = date_string.split('-');
-    return new Date(date_array[0], date_array[1] - 1, date_array[2]);
   }
 };
 
