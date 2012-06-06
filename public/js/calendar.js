@@ -157,9 +157,12 @@ var calendar = {
     var prev_month_name = this.month_names[prev_month.getMonth()] + '\'' + (prev_month.getYear() - 100);
     $('#prev').attr('value', '< ' + prev_month_name);
     
-    // $('#current').unbind('click').bind('click', function() {
-    //   calendar.render(now.getMonth(), now.getFullYear());
-    // });
+    $('#current').unbind('click').bind('click', function() {
+      calendar.render(now.getMonth(), now.getFullYear());
+    });
+    
+    var current_month_name = this.month_names[now.getMonth()] + '\'' + (now.getYear() - 100);
+    $('#current').attr('value', current_month_name);
     
     $('#next').unbind('click').bind('click', function() {
       calendar.render(next_month.getMonth(), next_month.getFullYear());

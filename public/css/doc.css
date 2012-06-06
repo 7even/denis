@@ -6,13 +6,19 @@ body {
   position: relative;
 }
 
+h1 {
+  line-height: 36px;
+}
+
 .year {
   font-size: 108px;
   margin-top: 30px;
+  margin-bottom: 18px;
 }
 
 .month {
   font-size: 42px;
+  line-height: 36px;
   color: red;
 }
 
@@ -22,7 +28,12 @@ body {
   text-align: right;
 }
 
+.cal_header {
+  margin-left: 0px;
+}
+
 .calendar {
+  border-top: 1px solid #ccc;
 }
 
 .calendar th {
@@ -61,5 +72,6 @@ td.vacation {
 }
 
 #legend {
+  width: auto;
   float: right;
 }
