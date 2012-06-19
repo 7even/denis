@@ -1,6 +1,22 @@
 javascript:
   $(document).ready(function() {
     admin.loadAndRender();
+    
+    $('#add_day').click(function() {
+      admin.addDay();
+    });
+    
+    $('#remove_day').click(function() {
+      admin.removeDay();
+    });
+    
+    $('.day').live('click', function() {
+      admin.toggleDay(this.id);
+    });
+    
+    $('#save').click(function() {
+      admin.save();
+    });
   });
 
 div.container
@@ -8,6 +24,10 @@ div.container
     div.span10.offset1
       h2 Настройка
       
-      div.btn-group#schedule
-        input.btn type="button" value="-" class="btn-mini" id="remove_day"
-        input.btn type="button" value="+" class="btn-mini" id="add_day"
+      p
+        div#schedule class="btn-group"
+          input.btn type="button" value="-" class="btn-mini" id="remove_day"
+          input.btn type="button" value="+" class="btn-mini" id="add_day"
+      
+      p
+        button.btn#save class="btn-primary" Сохранить
