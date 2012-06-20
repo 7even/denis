@@ -17,7 +17,7 @@ javascript:
       admin.removeDay();
     });
     
-    $('.day').live('click', function() {
+    $('#schedule').on('click', '.day', function() {
       admin.toggleDay(this.id);
     });
     
