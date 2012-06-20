@@ -16,7 +16,9 @@ get '/settings.json' do
 end
 
 post '/settings.json' do
-  Setting.schedule = params[:days]
+  Setting.base_date = Date.parse(params[:base_date])
+  Setting.schedule  = params[:days]
+  
   content_type :json
   params.to_json
 end

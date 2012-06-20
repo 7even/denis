@@ -53,7 +53,8 @@ var admin = {
   
   save: function() {
     var data = {
-      days: this.days
+      base_date: $('#datepicker')[0].value,
+      days:      this.days
     };
     
     $.post('/settings.json', data);
