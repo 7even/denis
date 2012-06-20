@@ -45,6 +45,9 @@ var admin = {
     settings.load(function() {
       admin.days = settings.schedule;
       admin.render();
+      
+      $('#datepicker')[0].value = settings.base_date_str();
+      $('#datepicker').datepicker('update');
     });
   },
   

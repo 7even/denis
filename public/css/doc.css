@@ -10,26 +10,26 @@ h1 {
   line-height: 36px;
 }
 
-.year {
+.cal_header {
+  margin-left: 0px;
+}
+
+.cal_header .year {
   font-size: 108px;
   margin-top: 30px;
   margin-bottom: 18px;
 }
 
-.month {
+.cal_header .month {
   font-size: 42px;
   line-height: 36px;
   color: red;
 }
 
-.time {
+.cal_header .time {
   float: right;
   font-size: 36px;
   text-align: right;
-}
-
-.cal_header {
-  margin-left: 0px;
 }
 
 .calendar {

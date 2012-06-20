@@ -1,4 +1,16 @@
 var settings = {
+  base_date_str: function() {
+    var day = this.base_date.getDate();
+    day = (day < 10 ? '0' : '') + day;
+    
+    var month = this.base_date.getMonth() + 1;
+    month = (month < 10 ? '0' : '') + month;
+    
+    var year = this.base_date.getFullYear();
+    
+    return [day, month, year].join('.');
+  },
+  
   load: function(callback) {
     var self = this;
     

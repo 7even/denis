@@ -1,5 +1,12 @@
 javascript:
   $(document).ready(function() {
+    $('#datepicker').datepicker({
+      format:    'dd.mm.yyyy',
+      weekStart: 1,
+      autoclose: true,
+      language:  'ru'
+    });
+    
     admin.loadAndRender();
     
     $('#add_day').click(function() {
@@ -28,6 +35,9 @@ div.container
         div#schedule class="btn-group"
           input.btn type="button" value="-" class="btn-mini" id="remove_day"
           input.btn type="button" value="+" class="btn-mini" id="add_day"
+      
+      p
+        input#datepicker type="text" data-date-format="dd.mm.yyyy"
       
       p
         button.btn#save class="btn-primary" Сохранить
