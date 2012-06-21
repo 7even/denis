@@ -20,7 +20,7 @@ var admin = {
   },
   
   clear: function() {
-    $('.day').remove();
+    $('#schedule .day').remove();
   },
   
   render: function() {

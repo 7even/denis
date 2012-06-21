@@ -23,21 +23,30 @@ javascript:
     
     $('#save').click(function() {
       admin.save();
+      return false;
     });
   });
 
 div.container
   div.row
     div.span10.offset1
-      h2 Настройка
-      
-      p
-        div#schedule class="btn-group"
-          input.btn type="button" value="-" class="btn-mini" id="remove_day"
-          input.btn type="button" value="+" class="btn-mini" id="add_day"
-      
-      p
-        input#datepicker type="text"
-      
-      p
-        button.btn#save class="btn-primary" Сохранить
+      form class="form-horizontal"
+        fieldset
+          legend Настройка
+          
+          div class="control-group"
+            label class="control-label" for="schedule" Расписание
+            div.controls
+              div#schedule class="btn-group"
+                input.btn type="button" value="-" class="btn-mini" id="remove_day"
+                input.btn type="button" value="+" class="btn-mini" id="add_day"
+              p class="help-block" Черными обозначены рабочие дни, белыми - выходные.
+          
+          div class="control-group"
+            label class="control-label" for="datepicker" Базовая дата
+            div.controls
+              input#datepicker type="text"
+              p class="help-block" Любая дата, которая приходится на первый день расписания.
+          
+          div class="form-actions"
+            button.btn#save class="btn-primary" Сохранить
