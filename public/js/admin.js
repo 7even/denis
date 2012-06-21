@@ -64,8 +64,9 @@ var admin = {
       admin.days = settings.schedule;
       admin.renderSchedule();
       
-      $('#datepicker')[0].value = settings.formattedBaseDate();
-      $('#datepicker').datepicker('update');
+      var datepicker = $('#datepicker');
+      datepicker.val(settings.formattedBaseDate());
+      datepicker.datepicker('update');
       
       admin.vacations = settings.formattedVacations();
       admin.renderVacations();
