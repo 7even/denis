@@ -1,12 +1,12 @@
 var admin = {
   addDay: function() {
     this.days.push(0);
-    this.render();
+    this.renderSchedule();
   },
   
   removeDay: function() {
     this.days.pop();
-    this.render();
+    this.renderSchedule();
   },
   
   toggleDay: function(day_index) {
@@ -16,15 +16,15 @@ var admin = {
       this.days[day_index] = 0;
     }
     
-    this.render();
+    this.renderSchedule();
   },
   
-  clear: function() {
+  clearSchedule: function() {
     $('#schedule .day').remove();
   },
   
-  render: function() {
-    this.clear();
+  renderSchedule: function() {
+    this.clearSchedule();
     var last_button = $('#add_day');
     
     $(this.days).each(function(index, day) {
@@ -41,13 +41,34 @@ var admin = {
     });
   },
   
+  renderVacations: function() {
+    var tbody = $('#vacations tbody');
+    $(this.vacations).each(function(index, vacation) {
+      var tr = '<td><input type="text" value="' + vacation[0] + '"></td>';
+      tr    += '<td><input type="text" value="' + vacation[1] + '"></td>';
+      tr    += '<td><button class="btn btn-danger"><i class="icon-trash icon-white"></i></button></td>';
+      tr     = '<tr>' + tr + '</tr>';
+      tbody.append(tr);
+    });
+    
+    tbody.find('input').datepicker({
+      format:    'dd.mm.yyyy',
+      weekStart: 1,
+      autoclose: true,
+      language:  'ru'
+    });
+  },
+  
   loadAndRender: function() {
     settings.load(function() {
       admin.days = settings.schedule;
-      admin.render();
+      admin.renderSchedule();
       
-      $('#datepicker')[0].value = settings.base_date_str();
+      $('#datepicker')[0].value = settings.formattedBaseDate();
       $('#datepicker').datepicker('update');
+      
+      admin.vacations = settings.formattedVacations();
+      admin.renderVacations();
     });
   },
   

@@ -23,6 +23,9 @@ javascript:
     
     $('#save').click(function() {
       admin.save();
+    });
+    
+    $('form').submit(function() {
       return false;
     });
   });
@@ -47,6 +50,18 @@ div.container
             div.controls
               input#datepicker type="text"
               p class="help-block" Любая дата, которая приходится на первый день расписания.
+          
+          div class="control-group"
+            label class="control-label" for="vacations" Отпуска
+            div.controls
+              table.table#vacations class="table-bordered"
+                thead
+                  tr
+                    th начало
+                    th конец
+                    th
+                
+                tbody
           
           div class="form-actions"
             button.btn#save class="btn-primary" Сохранить

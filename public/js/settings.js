@@ -1,14 +1,17 @@
 var settings = {
-  base_date_str: function() {
-    var day = this.base_date.getDate();
-    day = (day < 10 ? '0' : '') + day;
+  formattedBaseDate: function() {
+    return this.formatDate(this.base_date);
+  },
+  
+  formattedVacations: function() {
+    var vacations = [];
+    $(this.vacations).each(function(i, vacation) {
+      var start = settings.formatDate(vacation[0]);
+      var end   = settings.formatDate(vacation[1]);
+      vacations.push([start, end]);
+    });
     
-    var month = this.base_date.getMonth() + 1;
-    month = (month < 10 ? '0' : '') + month;
-    
-    var year = this.base_date.getFullYear();
-    
-    return [day, month, year].join('.');
+    return vacations;
   },
   
   load: function(callback) {
@@ -32,5 +35,17 @@ var settings = {
   parseDate: function(date_string) {
     var date_array = date_string.split('-');
     return new Date(date_array[0], date_array[1] - 1, date_array[2]);
+  },
+  
+  formatDate: function(date) {
+    var day = date.getDate();
+    day = (day < 10 ? '0' : '') + day;
+    
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? '0' : '') + month;
+    
+    var year = date.getFullYear();
+    
+    return [day, month, year].join('.');
   }
 };
